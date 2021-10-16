@@ -6,21 +6,19 @@ using System;
 
 namespace ATUnivBugFinalExam
 {
+    [TestFixture]
+    public class TestClass
+    {
+
+    }
 
     public class Tests
     {
-        ChromeDriver driver;
-
-        [setup]
-        public void Setup()
-        {
-            ChromeDriver driver;
-        }
         [Test]
         [Category("Smoke Test")]
         public void LoginSuccessful()
         {
-            
+            ChromeDriver driver;
             driver = new ChromeDriver(@"c:\users\Public\Downloads");
             driver.Navigate().GoToUrl("https://candidatex:qa-is-cool@qa-task.backbasecloud.com/");
             var title = driver.Title;
@@ -33,7 +31,7 @@ namespace ATUnivBugFinalExam
         [Category("Smoke Test")]
         public void SignUp()
         {
-            
+            ChromeDriver driver;
             driver = new ChromeDriver(@"c:\users\Public\Downloads");
             driver.Navigate().GoToUrl("https://candidatex:qa-is-cool@qa-task.backbasecloud.com/");
             var username = "Jeannine" + DateTime.Now.ToString("yyyyMMddHHssff");
@@ -51,9 +49,9 @@ namespace ATUnivBugFinalExam
 
         [Test]
         [Category("Smoke Test")]
-        public void NewArticle()
+        public void Login()
         {
-            
+            ChromeDriver driver;
             driver = new ChromeDriver(@"c:\users\Public\Downloads");
             driver.Navigate().GoToUrl("https://candidatex:qa-is-cool@qa-task.backbasecloud.com/");
             var username = "Jeannine" + DateTime.Now.ToString("yyyyMMddHHssff");
@@ -63,8 +61,10 @@ namespace ATUnivBugFinalExam
             driver.FindElement(By.XPath("//input[@formcontrolname='email']")).SendKeys("jeannine20211015224889@jk.com");
             driver.FindElement(By.XPath("//input[@formcontrolname='password']")).SendKeys(password);
             driver.FindElement(By.CssSelector("body > app-root > app-auth-page > div > div > div > div > form > fieldset > button")).Click();
-            //IWebElement NewArticle = driver.FindElement(By.CssSelector("a[href='/editor']"));
-            //NewArticle.Click();
+            
+            Assert.IsTrue(driver.FindElement(By.CssSelector("body > app-root > app-layout-header > nav > div > ul > li:nth-child(1) > a")).Displayed);
+            driver.Quit();
+
             //Got stuck ^^^ here finding elements on this page and performing click operation.
 
         }
