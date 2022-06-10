@@ -19,7 +19,7 @@ namespace ATUnivBugFinalExam
         public void LoginSuccessful()
         {
             ChromeDriver driver;
-            driver = new ChromeDriver(@"c:\users\Public\Downloads");
+            driver = new ChromeDriver(@"\\drivers\\chromedriver.exe");
             driver.Navigate().GoToUrl("https://candidatex:qa-is-cool@qa-task.backbasecloud.com/");
             var title = driver.Title;
             Console.WriteLine(title);
@@ -32,7 +32,7 @@ namespace ATUnivBugFinalExam
         public void SignUp()
         {
             ChromeDriver driver;
-            driver = new ChromeDriver(@"c:\users\Public\Downloads");
+            driver = new ChromeDriver(@"C:\Users\Jeannine.Kwasnik\source\repos\ATUnivBegFinalExam\ATUnivBegFinalExam\Drivers");
             driver.Navigate().GoToUrl("https://candidatex:qa-is-cool@qa-task.backbasecloud.com/");
             var username = "Jeannine" + DateTime.Now.ToString("yyyyMMddHHssff");
             var email = username +"@jk.com";
@@ -52,7 +52,7 @@ namespace ATUnivBugFinalExam
         public void Login()
         {
             ChromeDriver driver;
-            driver = new ChromeDriver(@"c:\users\Public\Downloads");
+            driver = new ChromeDriver(@"Drivers");
             driver.Navigate().GoToUrl("https://candidatex:qa-is-cool@qa-task.backbasecloud.com/");
             var username = "Jeannine" + DateTime.Now.ToString("yyyyMMddHHssff");
             var email = username + "@jk.com";
