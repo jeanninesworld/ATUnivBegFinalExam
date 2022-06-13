@@ -13,13 +13,20 @@ namespace ATUnivBugFinalExam
     }
 
     public class Tests
+        
     {
+        ChromeDriver driver;
+        string startupPath = System.IO.Directory.GetParent(System.IO.Directory.GetCurrentDirectory()).
+        Parent.Parent.FullName + @"\..\Framework\ExternalDrivers\";
+
+
         [Test]
+        [TestCase(TestName = "1NavigateToHomepageTest")]
         [Category("Smoke Test")]
-        public void LoginSuccessful()
+        public void HomePage()
         {
-            ChromeDriver driver;
-            driver = new ChromeDriver(@"\\drivers\\chromedriver.exe");
+            driver = new ChromeDriver();
+
             driver.Navigate().GoToUrl("https://candidatex:qa-is-cool@qa-task.backbasecloud.com/");
             var title = driver.Title;
             Console.WriteLine(title);
@@ -28,41 +35,46 @@ namespace ATUnivBugFinalExam
         }
 
         [Test]
+        [TestCase(TestName = "2SignUpTest")]
         [Category("Smoke Test")]
         public void SignUp()
         {
-            ChromeDriver driver;
-            driver = new ChromeDriver(@"C:\Users\Jeannine.Kwasnik\source\repos\ATUnivBegFinalExam\ATUnivBegFinalExam\Drivers");
-            driver.Navigate().GoToUrl("https://candidatex:qa-is-cool@qa-task.backbasecloud.com/");
+            driver = new ChromeDriver();
+            driver.Navigate().GoToUrl("https://candidatex:qa-is-cool@qa-task.backbasecloud.com");
             var username = "Jeannine" + DateTime.Now.ToString("yyyyMMddHHssff");
             var email = username +"@jk.com";
             var password = "whatever";
-            driver.FindElement(By.CssSelector("body > app-root > app-layout-header > nav > div > ul > li:nth-child(3) > a")).Click();
-            driver.FindElement(By.CssSelector("body > app-root > app-auth-page > div > div > div > div > form > fieldset > fieldset:nth-child(1) > input")).SendKeys(username);
-            driver.FindElement(By.XPath("/html/body/app-root/app-auth-page/div/div/div/div/form/fieldset/fieldset[2]/input")).SendKeys(email);
+            driver.FindElement(By.XPath("//html/body//ul/li[3]/a")).Click();
+            driver.FindElement(By.XPath("//*[@formcontrolname='username']")).SendKeys(username);
+            driver.FindElement(By.XPath("//*[@formcontrolname='email']")).SendKeys(email);
             driver.FindElement(By.XPath("//input[@formcontrolname='password']")).SendKeys(password);
             driver.FindElement(By.XPath("//button")).Click();
 
-            Assert.IsTrue(driver.FindElement(By.CssSelector("body > app-root > app-layout-header > nav > div > ul > li:nth-child(1) > a")).Displayed);
+            Assert.IsTrue(driver.FindElement(By.XPath("/html//nav/div/ul/li[1]/a")).Text=="Home");
             driver.Quit();
         }
 
         [Test]
+        [TestCase(TestName = "3LoginTest")]
         [Category("Smoke Test")]
         public void Login()
         {
-            ChromeDriver driver;
-            driver = new ChromeDriver(@"Drivers");
-            driver.Navigate().GoToUrl("https://candidatex:qa-is-cool@qa-task.backbasecloud.com/");
-            var username = "Jeannine" + DateTime.Now.ToString("yyyyMMddHHssff");
-            var email = username + "@jk.com";
-            var password = "whatever";
-            driver.FindElement(By.CssSelector("body > app-root > app-layout-header > nav > div > ul > li:nth-child(2) > a")).Click();
-            driver.FindElement(By.XPath("//input[@formcontrolname='email']")).SendKeys("jeannine20211015224889@jk.com");
-            driver.FindElement(By.XPath("//input[@formcontrolname='password']")).SendKeys(password);
-            driver.FindElement(By.CssSelector("body > app-root > app-auth-page > div > div > div > div > form > fieldset > button")).Click();
+            driver = new ChromeDriver();
+            driver.Navigate().GoToUrl("https://candidatex:qa-is-cool@qa-task.backbasecloud.com");
+           
+            var email = "j@j2.com";
+            var password = "password";
             
-            Assert.IsTrue(driver.FindElement(By.CssSelector("body > app-root > app-layout-header > nav > div > ul > li:nth-child(1) > a")).Displayed);
+            driver.FindElement(By.XPath("//html//nav/div/ul/li[2]/a")).Click();
+            driver.FindElement(By.XPath("//input[@formcontrolname='email']")).SendKeys(email);
+            driver.FindElement(By.XPath("//input[@formcontrolname='password']")).SendKeys(password);
+            driver.FindElement(By.ClassName("nav-item")).Click();
+            driver.FindElement(By.XPath("//div[1]/div/ul/li[2]/a")).Click();
+
+            Assert.IsTrue(driver.FindElement(By.XPath("//h1")).Text.Contains("conduit"));
+
+
+            //Assert.IsTrue(driver.FindElement(By.CssSelector("body > app-root > app-layout-header > nav > div > ul > li:nth-child(1) > a")).Displayed);
             driver.Quit();
 
             //Got stuck ^^^ here finding elements on this page and performing click operation.
